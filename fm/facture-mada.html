@@ -1,0 +1,1405 @@
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Facture Mada - Logiciel de facturation | MadaSoft</title>
+
+    <meta name="description"
+          content="Facture Mada est une solution simple de gestion des factures, clients, produits et paiements pour les entreprises et indépendants à Madagascar.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+        .back-btn {
+            color: white;
+            border: 1px solid #38bdf8;
+            padding: 9px 18px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #38bdf8;
+            color: #111827;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 600px;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 70px 7%;
+        }
+
+        .hero-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 52px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            color: #38bdf8;
+        }
+
+        .hero-text p {
+            font-size: 19px;
+            color: #dbeafe;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(56,189,248,0.15);
+            border: 1px solid rgba(56,189,248,0.5);
+            color: #7dd3fc;
+            padding: 7px 14px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 13px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #7dd3fc;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            border: 1px solid #94a3b8;
+            color: white;
+            padding: 13px 25px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #0f172a;
+        }
+
+        /* =========================
+           SIMULATED SOFTWARE
+        ========================= */
+
+        .software-window {
+            background: #e5e7eb;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+            transform: perspective(1000px) rotateY(-3deg);
+        }
+
+        .window-header {
+            height: 42px;
+            background: #1f2937;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            gap: 7px;
+        }
+
+        .circle {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #9ca3af;
+        }
+
+        .window-title {
+            color: #d1d5db;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        .app-content {
+            display: flex;
+            min-height: 370px;
+        }
+
+        .sidebar {
+            width: 150px;
+            background: #111827;
+            padding: 18px 10px;
+            color: white;
+        }
+
+        .side-logo {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 22px;
+            text-align: center;
+            color: #38bdf8;
+        }
+
+        .side-item {
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .side-item.active {
+            background: #1d4ed8;
+        }
+
+        .dashboard {
+            flex: 1;
+            background: #f8fafc;
+            padding: 20px;
+        }
+
+        .dashboard h3 {
+            color: #111827;
+            margin-bottom: 15px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 7px;
+            padding: 13px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .card small {
+            color: #64748b;
+            font-size: 9px;
+        }
+
+        .card strong {
+            display: block;
+            margin-top: 4px;
+            font-size: 16px;
+            color: #1e3a8a;
+        }
+
+        .invoice-preview {
+            background: white;
+            border-radius: 7px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .invoice-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .invoice-line {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            padding: 7px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 9px;
+        }
+
+        .invoice-total {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 12px;
+            font-size: 12px;
+        }
+
+        /* =========================
+           SECTION GENERAL
+        ========================= */
+
+        section {
+            padding: 80px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 50px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: #64748b;
+        }
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features {
+            background: white;
+        }
+
+        .feature-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 28px;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 23px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 9px;
+            color: #111827;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* =========================
+           BENEFITS
+        ========================= */
+
+        .benefits {
+            background: #eff6ff;
+        }
+
+        .benefit-container {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .benefit-list {
+            list-style: none;
+        }
+
+        .benefit-list li {
+            margin-bottom: 18px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .benefit-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #2563eb;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .benefit-box {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 12px 35px rgba(30,64,175,0.1);
+        }
+
+        .benefit-box h3 {
+            font-size: 25px;
+            margin-bottom: 15px;
+            color: #1e3a8a;
+        }
+
+        /* =========================
+           INVOICE SECTION
+        ========================= */
+
+        .invoice-section {
+            background: white;
+        }
+
+        .invoice-demo {
+            max-width: 850px;
+            margin: auto;
+            background: #f8fafc;
+            padding: 35px;
+            border-radius: 12px;
+        }
+
+        .invoice-paper {
+            background: white;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+
+        .paper-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid #1e3a8a;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .company-name {
+            font-size: 25px;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+
+        .invoice-number {
+            text-align: right;
+        }
+
+        .invoice-number strong {
+            font-size: 20px;
+        }
+
+        .client-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .client-info h4 {
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .invoice-table th,
+        .invoice-table td {
+            padding: 11px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        .invoice-table th {
+            background: #f1f5f9;
+            color: #334155;
+        }
+
+        .total-area {
+            margin-left: auto;
+            width: 280px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 7px 0;
+        }
+
+        .total-final {
+            border-top: 2px solid #1e3a8a;
+            margin-top: 8px;
+            padding-top: 12px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            background: linear-gradient(135deg, #1e3a8a, #0f172a);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            max-width: 650px;
+            margin: 0 auto 30px;
+            color: #dbeafe;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #0b1120;
+            color: #94a3b8;
+            padding: 35px 7%;
+            text-align: center;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            margin: 0 8px;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #38bdf8;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .hero-container,
+            .benefit-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 60px;
+            }
+
+            .hero-text h1 {
+                font-size: 42px;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .software-window {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .back-btn {
+                padding: 7px 12px;
+                font-size: 13px;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+
+            .hero {
+                padding: 55px 5%;
+            }
+
+            .hero-text h1 {
+                font-size: 36px;
+            }
+
+            .hero-text p {
+                font-size: 16px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                width: 105px;
+            }
+
+            .app-content {
+                min-height: 430px;
+            }
+
+            .invoice-paper {
+                padding: 20px;
+            }
+
+            .paper-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .invoice-number {
+                text-align: left;
+            }
+
+            .client-info {
+                grid-template-columns: 1fr;
+            }
+
+            .invoice-demo {
+                padding: 15px;
+            }
+
+            .invoice-table {
+                font-size: 11px;
+            }
+
+            .invoice-table th,
+            .invoice-table td {
+                padding: 7px 4px;
+            }
+
+            .total-area {
+                width: 100%;
+            }
+
+            .cta h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo">
+        Mada<span>Soft</span>
+    </div>
+
+    <a href="../madaSoft/index.html" class="back-btn">
+        ← Retour à MadaSoft
+    </a>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-container">
+
+        <div class="hero-text">
+
+            <div class="badge">
+                Solution de gestion pour entreprises
+            </div>
+
+            <h1>
+                Facture <span>Mada</span>
+            </h1>
+
+            <p>
+                Simplifiez votre facturation, gérez vos clients,
+                vos produits et vos paiements depuis une seule
+                application simple et organisée.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#fonctionnalites" class="btn-primary">
+                    Découvrir les fonctionnalités
+                </a>
+
+                <a href="#contact" class="btn-secondary">
+                    Nous contacter
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- SIMULATION LOGICIEL -->
+
+        <div class="software-window">
+
+            <div class="window-header">
+
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+
+                <div class="window-title">
+                    Facture Mada — Tableau de bord
+                </div>
+
+            </div>
+
+
+            <div class="app-content">
+
+                <div class="sidebar">
+
+                    <div class="side-logo">
+                        FACTURE MADA
+                    </div>
+
+                    <div class="side-item active">
+                        📊 Tableau de bord
+                    </div>
+
+                    <div class="side-item">
+                        👥 Clients
+                    </div>
+
+                    <div class="side-item">
+                        📦 Produits
+                    </div>
+
+                    <div class="side-item">
+                        🧾 Factures
+                    </div>
+
+                    <div class="side-item">
+                        💰 Paiements
+                    </div>
+
+                    <div class="side-item">
+                        📈 Rapports
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard">
+
+                    <h3>
+                        Tableau de bord
+                    </h3>
+
+
+                    <div class="cards">
+
+                        <div class="card">
+                            <small>Factures</small>
+                            <strong>128</strong>
+                        </div>
+
+                        <div class="card">
+                            <small>Clients</small>
+                            <strong>64</strong>
+                        </div>
+
+                        <div class="card">
+                            <small>Chiffre d'affaires</small>
+                            <strong>24,8 M Ar</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="invoice-preview">
+
+                        <div class="invoice-title">
+
+                            <span>
+                                FACTURE
+                            </span>
+
+                            <span>
+                                FAC-2026-0128
+                            </span>
+
+                        </div>
+
+                        <div class="invoice-line">
+                            <span>Produit / Service</span>
+                            <span>Qté</span>
+                            <span>Prix</span>
+                            <span>Total</span>
+                        </div>
+
+                        <div class="invoice-line">
+                            <span>Service informatique</span>
+                            <span>1</span>
+                            <span>450 000</span>
+                            <span>450 000</span>
+                        </div>
+
+                        <div class="invoice-line">
+                            <span>Maintenance</span>
+                            <span>2</span>
+                            <span>150 000</span>
+                            <span>300 000</span>
+                        </div>
+
+                        <div class="invoice-total">
+                            Total : 750 000 Ar
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FONCTIONNALITÉS
+========================= -->
+
+<section class="features" id="fonctionnalites">
+
+    <div class="section-title">
+
+        <h2>
+            Tout ce qu'il faut pour gérer vos factures
+        </h2>
+
+        <p>
+            Facture Mada est pensé pour rendre la gestion
+            commerciale plus simple, rapide et structurée.
+        </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🧾
+            </div>
+
+            <h3>
+                Création de factures
+            </h3>
+
+            <p>
+                Créez rapidement des factures professionnelles
+                avec les informations de vos clients,
+                produits et services.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                👥
+            </div>
+
+            <h3>
+                Gestion des clients
+            </h3>
+
+            <p>
+                Centralisez les coordonnées et informations
+                importantes de vos clients dans une base
+                organisée.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📦
+            </div>
+
+            <h3>
+                Produits et services
+            </h3>
+
+            <p>
+                Enregistrez vos produits ou services et
+                retrouvez facilement leurs informations
+                lors de la création d'une facture.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💰
+            </div>
+
+            <h3>
+                Suivi des paiements
+            </h3>
+
+            <p>
+                Suivez les paiements reçus, les factures
+                en attente et les montants restant à payer.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📊
+            </div>
+
+            <h3>
+                Tableau de bord
+            </h3>
+
+            <p>
+                Visualisez rapidement les factures,
+                les clients, les ventes et les indicateurs
+                essentiels de votre activité.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📈
+            </div>
+
+            <h3>
+                Rapports
+            </h3>
+
+            <p>
+                Consultez des rapports pour mieux suivre
+                votre activité commerciale et faciliter
+                votre prise de décision.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     AVANTAGES
+========================= -->
+
+<section class="benefits">
+
+    <div class="benefit-container">
+
+        <div>
+
+            <div class="section-title" style="text-align:left;margin:0 0 25px 0;">
+
+                <h2>
+                    Une gestion plus simple
+                </h2>
+
+                <p>
+                    Une solution conçue pour les petites entreprises,
+                    commerces, indépendants et prestataires.
+                </p>
+
+            </div>
+
+
+            <ul class="benefit-list">
+
+                <li>
+                    Centraliser les informations de vos clients.
+                </li>
+
+                <li>
+                    Créer vos factures plus rapidement.
+                </li>
+
+                <li>
+                    Réduire les erreurs de calcul et de saisie.
+                </li>
+
+                <li>
+                    Suivre les factures payées et impayées.
+                </li>
+
+                <li>
+                    Retrouver facilement vos anciennes factures.
+                </li>
+
+                <li>
+                    Disposer d'une vision plus claire de votre activité.
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="benefit-box">
+
+            <h3>
+                Pensé pour le contexte local
+            </h3>
+
+            <p>
+                Facture Mada peut être adapté aux besoins des
+                entreprises à Madagascar : montants en Ariary,
+                informations clients, produits, services,
+                paiements et documents commerciaux.
+            </p>
+
+            <br>
+
+            <p>
+                L'objectif est de proposer une solution accessible
+                et pratique sans complexité inutile.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     APERÇU FACTURE
+========================= -->
+
+<section class="invoice-section">
+
+    <div class="section-title">
+
+        <h2>
+            Exemple de facture
+        </h2>
+
+        <p>
+            Une présentation claire pour faciliter la lecture
+            de vos documents commerciaux.
+        </p>
+
+    </div>
+
+
+    <div class="invoice-demo">
+
+        <div class="invoice-paper">
+
+
+            <div class="paper-header">
+
+                <div>
+
+                    <div class="company-name">
+                        MON ENTREPRISE
+                    </div>
+
+                    <div>
+                        Antananarivo, Madagascar
+                    </div>
+
+                    <div>
+                        Tél : 034 00 000 00
+                    </div>
+
+                </div>
+
+
+                <div class="invoice-number">
+
+                    <strong>
+                        FACTURE
+                    </strong>
+
+                    <br>
+
+                    N° FAC-2026-0128
+
+                    <br>
+
+                    Date : 30/09/2026
+
+                </div>
+
+            </div>
+
+
+            <div class="client-info">
+
+                <div>
+
+                    <h4>
+                        FACTURÉ À
+                    </h4>
+
+                    <strong>
+                        Client Exemple
+                    </strong>
+
+                    <br>
+
+                    Antananarivo
+
+                    <br>
+
+                    Madagascar
+
+                </div>
+
+
+                <div>
+
+                    <h4>
+                        CONDITIONS
+                    </h4>
+
+                    Paiement : À réception
+
+                    <br>
+
+                    Devise : Ariary
+
+                </div>
+
+            </div>
+
+
+            <table class="invoice-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Description</th>
+                        <th>Qté</th>
+                        <th>Prix unitaire</th>
+                        <th>Total</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Service informatique</td>
+                        <td>1</td>
+                        <td>450 000 Ar</td>
+                        <td>450 000 Ar</td>
+                    </tr>
+
+                    <tr>
+                        <td>Maintenance informatique</td>
+                        <td>2</td>
+                        <td>150 000 Ar</td>
+                        <td>300 000 Ar</td>
+                    </tr>
+
+                    <tr>
+                        <td>Assistance technique</td>
+                        <td>1</td>
+                        <td>100 000 Ar</td>
+                        <td>100 000 Ar</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+            <div class="total-area">
+
+                <div class="total-row">
+                    <span>Sous-total</span>
+                    <strong>850 000 Ar</strong>
+                </div>
+
+                <div class="total-row">
+                    <span>TVA</span>
+                    <strong>0 Ar</strong>
+                </div>
+
+                <div class="total-row total-final">
+                    <span>Total</span>
+                    <strong>850 000 Ar</strong>
+                </div>
+
+            </div>
+
+
+            <br>
+
+            <p style="font-size:13px;color:#64748b;">
+                Merci pour votre confiance.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     POUR QUI ?
+========================= -->
+
+<section>
+
+    <div class="section-title">
+
+        <h2>
+            Pour qui ?
+        </h2>
+
+        <p>
+            Facture Mada peut être adapté à différents types
+            d'activités professionnelles.
+        </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🏪
+            </div>
+
+            <h3>
+                Commerces
+            </h3>
+
+            <p>
+                Gestion des produits, clients, ventes et factures.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💼
+            </div>
+
+            <h3>
+                Indépendants
+            </h3>
+
+            <p>
+                Facturation des prestations et suivi des paiements.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🏢
+            </div>
+
+            <h3>
+                PME
+            </h3>
+
+            <p>
+                Organisation de la facturation et suivi de l'activité.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="cta" id="contact">
+
+    <h2>
+        Vous souhaitez en savoir plus ?
+    </h2>
+
+    <p>
+        MadaSoft développe des solutions adaptées aux besoins
+        des entreprises et professionnels à Madagascar.
+        Contactez-nous pour discuter de votre projet.
+    </p>
+
+    <a href="mailto:madasoft.mg@gmail.com" class="btn-primary">
+        Contacter MadaSoft
+    </a>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <p>
+        © 2026 <strong>MadaSoft</strong> —
+        Solutions numériques à Madagascar
+    </p>
+
+    <div class="footer-links">
+
+        <a href="index.html">
+            Accueil
+        </a>
+
+        <a href="work-smart-mada.html">
+            Work Smart Mada
+        </a>
+
+        <a href="stock-mada.html">
+            Stock Mada
+        </a>
+
+        <a href="facture-mada.html">
+            Facture Mada
+        </a>
+
+    </div>
+
+</footer>
+
+
+</body>
+</html>
+```
